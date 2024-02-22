@@ -22,13 +22,18 @@ public class UserController {
 
     // Kullanıcı girişi (Basitleştirilmiş)
     @PostMapping("/login")
-    public User loginUser(@RequestBody LoginRequest loginRequest) {
-        // Kullanıcı giriş işlemleri
-        User autherizedUser = userRepository.findByUsername(loginRequest.getUsername());
-        if (autherizedUser != null) {
-            return autherizedUser;
-        } else {
-            return null;
+    public User loginUser(@RequestBody LoginRequest loginRequest) throws Throwable {
+        try {
+            User autherizedUser = userRepository.findByUsername(loginRequest.getUsername());
+            if (autherizedUser != null && autherizedUser.getPassword().equals(loginRequest.getPassword())) {
+                System.out.println(autherizedUser);
+                return autherizedUser;
+            }else {
+                System.err.println("User no exist.");
+                return null;
+            }
+        }catch (Exception e){
+            throw e.fillInStackTrace();
         }
     }
 }
