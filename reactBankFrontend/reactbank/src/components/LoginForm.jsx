@@ -2,12 +2,14 @@ import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import {FaUser , FaLock } from "react-icons/fa";
 import '../css/LoginForm.css'
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
+    const navigate = useNavigate();
 
     const handleRememberMe = (e) => {
     setRememberMe(e.target.checked);
@@ -37,6 +39,7 @@ function LoginForm() {
                     localStorage.setItem('id',response.data.id);
                     localStorage.setItem('password',response.data.password);
                 }
+                navigate('/dashboard');
                 console.log('Login successful:', response.data);
             } else {
                 // Yanıt beklenen formatta değil
