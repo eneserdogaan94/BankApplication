@@ -1,7 +1,7 @@
-package com.bank.bank.controllers;
+package com.bank.bank.controller;
 
 import com.bank.bank.entity.Account;
-import com.bank.bank.repositories.AccountRepository;
+import com.bank.bank.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +24,7 @@ public class AccountController {
     @PutMapping("/{id}")
     public Account updateAccount(@PathVariable UUID id, @RequestBody Account accountDetails) {
         // Hesap güncelleme işlemleri
+        accountDetails.setId(id);
         return accountRepository.save(accountDetails);
     }
 

@@ -28,6 +28,10 @@ public class Transaction {
         this.status = "PENDING"; // Default Value
     }
 
+    public Transaction() {
+
+    }
+
     public Long getId() {
         return id;
     }

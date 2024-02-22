@@ -1,7 +1,7 @@
-package com.bank.bank.controllers;
+package com.bank.bank.controller;
 
 import com.bank.bank.entity.User;
-import com.bank.bank.repositories.UserRepository;
+import com.bank.bank.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
