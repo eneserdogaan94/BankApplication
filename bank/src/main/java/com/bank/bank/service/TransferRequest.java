@@ -5,24 +5,24 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public class TransferRequest {
-    private UUID fromAccountId;
-    private UUID toAccountId;
+    private String fromAccountId;
+    private String toAccountId;
     private BigDecimal amount;
 
     // Getters and Setters
-    public UUID getFromAccountId() {
+    public String getFromAccountId() {
         return fromAccountId;
     }
 
-    public void setFromAccountId(UUID fromAccountId) {
+    public void setFromAccountId(String fromAccountId) {
         this.fromAccountId = fromAccountId;
     }
 
-    public UUID getToAccountId() {
+    public String getToAccountId() {
         return toAccountId;
     }
 
-    public void setToAccountId(UUID toAccountId) {
+    public void setToAccountId(String toAccountId) {
         this.toAccountId = toAccountId;
     }
 

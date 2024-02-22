@@ -1,17 +1,17 @@
 package com.bank.bank.entity;
+import com.bank.bank.service.UserService;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 public class Account {
     @Id
-    @GeneratedValue
-    private UUID id;
+    private String id;
     private String number;
     private String name;
     private BigDecimal balance;
@@ -21,7 +21,7 @@ public class Account {
     @ManyToOne
     private User user;
 
-    public Account(UUID id, String number, String name, BigDecimal balance, LocalDateTime createdAt, LocalDateTime updatedAt, User user) {
+    public Account(String id, String number, String name, BigDecimal balance, LocalDateTime createdAt, LocalDateTime updatedAt, User user) {
         this.id = id;
         this.number = number;
         this.name = name;
@@ -31,11 +31,11 @@ public class Account {
         this.user = user;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -71,8 +71,8 @@ public class Account {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
+    public LocalDateTime getUpdatedAt(LocalDateTime updatedAt) {
+        return this.updatedAt;
     }
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
@@ -86,4 +86,6 @@ public class Account {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }

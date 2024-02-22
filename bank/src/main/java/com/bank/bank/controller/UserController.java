@@ -1,5 +1,6 @@
 package com.bank.bank.controller;
 
+import com.bank.bank.entity.Account;
 import com.bank.bank.entity.User;
 import com.bank.bank.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class UserController {
     @PostMapping("/login")
     public User loginUser(@RequestBody User user) {
         // Kullanıcı giriş işlemleri
-        return user;
+        User autherizedUser=userRepository.findById(user.getId()).orElse(null);
+        if(autherizedUser!=null){
+            return user;
+        }else
+            return null;
     }
 }

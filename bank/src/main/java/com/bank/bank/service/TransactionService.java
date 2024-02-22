@@ -23,7 +23,7 @@ public class TransactionService {
     private AccountRepository accountRepository;
 
     @Transactional
-    public Transaction createTransaction(UUID fromAccountId, UUID toAccountId, BigDecimal amount) {
+    public Transaction createTransaction(String fromAccountId, String toAccountId, BigDecimal amount) {
         Account fromAccount = accountRepository.findById(fromAccountId).orElseThrow();
         Account toAccount = accountRepository.findById(toAccountId).orElseThrow();
 
@@ -48,6 +48,6 @@ public class TransactionService {
     }
 
     public List<Transaction> getTransactionsByAccountId(UUID accountId) {
-        return transactionRepository.findTransactionsByAccountId(accountId);
+        return transactionRepository.findByAccountId(accountId);
     }
 }
