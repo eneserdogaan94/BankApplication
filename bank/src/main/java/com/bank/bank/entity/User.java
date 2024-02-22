@@ -26,6 +26,8 @@ public class User {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
+    public User() {
+    }
 
     public UUID getId() {
         return id;

@@ -1,12 +1,11 @@
 package com.bank.bank.controller;
 
+import com.bank.bank.entity.Account;
+import com.bank.bank.entity.LoginRequest;
 import com.bank.bank.entity.User;
 import com.bank.bank.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -23,12 +22,13 @@ public class UserController {
 
     // Kullanıcı girişi (Basitleştirilmiş)
     @PostMapping("/login")
-    public User loginUser(@RequestBody User user) {
+    public User loginUser(@RequestBody LoginRequest loginRequest) {
         // Kullanıcı giriş işlemleri
-        User autherizedUser = userRepository.findById(user.getId()).orElse(null);
+        User autherizedUser = userRepository.findByUsername(loginRequest.getUsername());
         if (autherizedUser != null) {
-            return user;
-        } else
+            return autherizedUser;
+        } else {
             return null;
+        }
     }
 }
