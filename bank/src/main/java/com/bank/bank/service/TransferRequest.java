@@ -1,8 +1,6 @@
-
 package com.bank.bank.service;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 public class TransferRequest {
     private String fromAccountId;

@@ -7,6 +7,7 @@ import jakarta.persistence.ManyToOne;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
 @Entity
 public class Transaction {
     @Id
