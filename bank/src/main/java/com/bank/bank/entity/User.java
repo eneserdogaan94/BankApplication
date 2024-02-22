@@ -10,15 +10,14 @@ import java.util.UUID;
 @Entity
 public class User {
     @Id
-    @GeneratedValue
-    private UUID id;
+    private String id;
     private String username;
     private String password;
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public User(UUID id, String username, String password, String email, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(String id, String username, String password, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -27,13 +26,15 @@ public class User {
         this.updatedAt = LocalDateTime.now();
     }
     public User() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

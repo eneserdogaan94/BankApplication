@@ -29,6 +29,10 @@ public class Account {
         this.updatedAt = LocalDateTime.now();
         this.user = user;
     }
+    public Account(){
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
 
     public String getId() {
         return id;

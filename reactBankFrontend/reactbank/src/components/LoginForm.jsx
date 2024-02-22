@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import {FaUser , FaLock } from "react-icons/fa";
+import '../css/LoginForm.css'
 
 function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
+
+    const handleRememberMe = (e) => {
+    setRememberMe(e.target.checked);
+    };
+    useEffect(() => {
+        const savedUsername = localStorage.getItem('username');
+        const savedPassword = localStorage.getItem('password');
+        const savedToken = localStorage.getItem('token');
+        if (savedUsername && savedToken && savedPassword) {
+            setUsername(savedUsername);
+            setPassword(savedPassword);
+            // Token'ı doğrulama veya kullanıcıyı otomatik olarak giriş yaptırma işlemleri
+        }
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -15,7 +31,12 @@ function LoginForm() {
                 password
             });
             if (response && response.data) {
-                // Giriş başarılı, JWT'yi saklayabilir ve kullanıcıyı yönlendirebilirsiniz
+                if (rememberMe) {
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('id',response.data.id);
+                    localStorage.setItem('password',response.data.password);
+                }
                 console.log('Login successful:', response.data);
             } else {
                 // Yanıt beklenen formatta değil
@@ -32,10 +53,12 @@ function LoginForm() {
     };
 
     return (
-        <div>
+        <div className='wrapper'>
             <form onSubmit={handleLogin}>
+                <h1>Mini Bank</h1>
+                <h1>Login</h1>
                 <div className='input-box'>
-                    <FaUser/>
+                    <FaUser className='icon'/>
                     <input
                         type="text"
                         value={username}
@@ -45,7 +68,7 @@ function LoginForm() {
                     
                 </div>
                 <div className='input-box'>
-                    <FaLock/>
+                    <FaLock className='icon'/>
                     <input
                         type="password"
                         value={password}
@@ -57,6 +80,8 @@ function LoginForm() {
                     <label>
                     <input
                     type="checkbox"
+                    checked={rememberMe}
+                    onChange={handleRememberMe}
                     />Remember Me
                     </label>
                     <a href="#">Forgot Password</a>
