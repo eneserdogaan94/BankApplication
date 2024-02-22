@@ -39,7 +39,7 @@ function LoginForm() {
                     localStorage.setItem('id',response.data.id);
                     localStorage.setItem('password',response.data.password);
                 }
-                navigate('/dashboard');
+                navigate('/home');
                 console.log('Login successful:', response.data);
             } else {
                 // Yanıt beklenen formatta değil
