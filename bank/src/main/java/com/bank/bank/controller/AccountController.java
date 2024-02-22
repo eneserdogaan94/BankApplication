@@ -1,6 +1,7 @@
 package com.bank.bank.controller;
 
 import com.bank.bank.entity.Account;
+import com.bank.bank.entity.User;
 import com.bank.bank.repository.AccountRepository;
 import com.bank.bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,16 @@ public class AccountController {
     }
 
     // Hesap detaylarını görüntüleme
-    @GetMapping("/{id}")
+    @GetMapping("/by-id/{id}")
     public Account getAccountById(@PathVariable String id) {
         return accountRepository.findById(id).orElse(null);
+    }
+
+    @GetMapping("/by-username/{userName}")
+    public Account getAccountByUserId(@PathVariable("userName") String userName) {
+        User user = userService.getUserByUsername(userName);
+        Account account=accountRepository.findByUserId(user.getId());
+        return account;
+
     }
 }

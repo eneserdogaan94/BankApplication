@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import 
 { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
  from 'react-icons/bs'
@@ -7,89 +7,148 @@ import
  from 'recharts';
 
  import '../css/Dashboard.css';
-
+ import axios from 'axios';
 function Home() {
 
+    const [balance, setBalance]=useState(null);
+    const [username, setUsername] = useState('');
+    const [accountName, setAccountName] = useState('');
+    const [currencyData, setCurrencyData] = useState([
+        {
+            "CurrencyCode": "EUR",
+            "RateDate": "2020-06-01T00:00:00+03:00",
+            "SaleRate": "7.58195",
+            "PurchaseRate": "7.62595"
+        },
+        {
+            "CurrencyCode": "DKK",
+            "RateDate": "2020-06-01T00:00:00+03:00",
+            "SaleRate": "0.9984",
+            "PurchaseRate": "1.0384"
+        },
+        {
+            "CurrencyCode": "RUB",
+            "RateDate": "2020-06-01T00:00:00+03:00",
+            "SaleRate": "0.09465",
+            "PurchaseRate": "0.09865"
+        },
+        {
+            "CurrencyCode": "USD",
+            "RateDate": "2020-06-01T00:00:00+03:00",
+            "SaleRate": "6.8086",
+            "PurchaseRate": "6.8486"
+        }
+    ]);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrencyData(currentData =>
+                currentData.map(currency => ({
+                    ...currency,
+                    PurchaseRate: (parseFloat(currency.PurchaseRate) + Math.random() * 0.1 - 0.05).toFixed(5)
+                }))
+            );
+        }, 10000);
+
+        return () => clearInterval(interval);
+    }, []);
+    useEffect(() => {
+        setUsername(localStorage.getItem('username'));
+    }, []);
+    useEffect(() => {
+        const fetchAccountBalance = async () => {
+            if (username) {
+                try {
+                    const response = await axios.get(`http://localhost:8080/api/accounts/by-username/${username}`);
+                    console.log(response.data);
+                    setBalance(response.data.balance);
+                    setAccountName(response.data.name);
+                } catch (error) {
+                    console.error('Error fetching account balance:', error);
+                }
+            }
+        };
+
+        fetchAccountBalance();
+    }, [username]); 
+    
     const data = [
         {
-          name: 'Page A',
+          name: 'Ocak',
           uv: 4000,
           pv: 2400,
           amt: 2400,
         },
         {
-          name: 'Page B',
+          name: 'Şubat',
           uv: 3000,
           pv: 1398,
           amt: 2210,
         },
         {
-          name: 'Page C',
+          name: 'Mart',
           uv: 2000,
           pv: 9800,
           amt: 2290,
         },
         {
-          name: 'Page D',
+          name: 'Nisan',
           uv: 2780,
           pv: 3908,
           amt: 2000,
         },
         {
-          name: 'Page E',
+          name: 'Mayıs',
           uv: 1890,
           pv: 4800,
           amt: 2181,
         },
         {
-          name: 'Page F',
+          name: 'Ağustos',
           uv: 2390,
           pv: 3800,
           amt: 2500,
         },
         {
-          name: 'Page G',
+          name: 'Eylül',
           uv: 3490,
           pv: 4300,
           amt: 2100,
         },
       ];
-     
+    
 
   return (
     <main className='main-container'>
         <div className='main-title'>
-            <h3>DASHBOARD</h3>
+            <h3>Dashboard</h3>
         </div>
 
         <div className='main-cards'>
+           
             <div className='card'>
                 <div className='card-inner'>
-                    <h3>PRODUCTS</h3>
-                    <BsFillArchiveFill className='card_icon'/>
-                </div>
-                <h1>300</h1>
-            </div>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3>CATEGORIES</h3>
-                    <BsFillGrid3X3GapFill className='card_icon'/>
-                </div>
-                <h1>12</h1>
-            </div>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3>CUSTOMERS</h3>
+                    <h3>Account</h3>
                     <BsPeopleFill className='card_icon'/>
                 </div>
-                <h1>33</h1>
+                <h1>{accountName}</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
-                    <h3>ALERTS</h3>
+                    <h3>Balance</h3>
+                    <BsFillArchiveFill className='card_icon'/>
+                </div>
+                <h1>{balance !== null ? <p>${balance}</p> : <p>Loading...</p>}</h1>
+            </div>
+            <div className='card'>
+                <div className='card-inner'>
+                    <h3>Currency</h3>
                     <BsFillBellFill className='card_icon'/>
                 </div>
-                <h1>42</h1>
+                {currencyData.map(currency => (
+                <div key={currency.CurrencyCode}>
+                    <p>{currency.CurrencyCode}: {currency.PurchaseRate}</p>
+                </div>
+            ))}
             </div>
         </div>
 
