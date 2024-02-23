@@ -1,11 +1,6 @@
 import React, { useState,useEffect } from 'react'
-import 
-{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, BsCurrencyExchange, BsWallet}
- from 'react-icons/bs'
- import 
- { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
- from 'recharts';
-
+import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, BsCurrencyExchange, BsWallet} from 'react-icons/bs'
+ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
  import '../css/Dashboard.css';
  import axios from 'axios';
 function Home() {
@@ -61,63 +56,75 @@ function Home() {
     
     const data = [
         {
-          name: 'Ocak',
+          name: 'Jan',
           Expense: 4000,
           Income: 2400,
           amt: 2400,
         },
         {
-          name: 'Şubat',
+          name: 'Feb',
           Expense: 3000,
           Income: 1398,
           amt: 2210,
         },
         {
-          name: 'Mart',
+          name: 'Mar',
           Expense: 2000,
           Income: 9800,
           amt: 2290,
         },
         {
-          name: 'Nisan',
+          name: 'Apr',
           Expense: 2780,
           Income: 3908,
           amt: 2000,
         },
         {
-          name: 'Mayıs',
+          name: 'May',
           Expense: 1890,
           Income: 4800,
           amt: 2181,
         },
         {
-          name: 'Ağustos',
+          name: 'June',
           Expense: 2390,
           Income: 3800,
           amt: 2500,
         },
         {
-          name: 'Eylül',
+          name: 'July',
           Expense: 3490,
           Income: 4300,
           amt: 2100,
         },
         {
-            name: 'Ekim',
+            name: 'August',
             Expense: 3490,
             Income: 3300,
             amt: 2100,
           },
           {
-            name: 'Kasım',
+            name: 'September',
             Expense: 3490,
             Income: 5600,
             amt: 2100,
           },
           {
-            name: 'Aralık',
-            Expense: 3490,
+            name: 'October',
+            Expense: 3390,
             Income: 7300,
+            amt: 2100,
+          },
+          {
+            name: 'November',
+            Expense: 2345,
+            Income: 12032,
+            amt: 2100,
+          },
+          {
+            name: 'December',
+            Expense: 7300,
+            Income: 12032,
             amt: 2100,
           },
       ];
