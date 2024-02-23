@@ -22,6 +22,8 @@ function LoginForm() {
             setUsername(savedUsername);
             setPassword(savedPassword);
             // Token'ı doğrulama veya kullanıcıyı otomatik olarak giriş yaptırma işlemleri
+        }else{
+            setErrorMessage("User unathorized.");
         }
     }, []);
 
@@ -42,11 +44,9 @@ function LoginForm() {
                 navigate('/home');
                 console.log('Login successful:', response.data);
             } else {
-                // Yanıt beklenen formatta değil
                 console.log('Unexpected response format');
             }
         } catch (error) {
-            // Hata mesajını göster
             if (error.response && error.response.data) {
                 setErrorMessage('Login failed: ' + error.response.data.message);
             } else {

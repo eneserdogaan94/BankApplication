@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import 
-{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
+{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, BsCurrencyExchange, BsWallet}
  from 'react-icons/bs'
  import 
  { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
@@ -16,27 +16,15 @@ function Home() {
     const [currencyData, setCurrencyData] = useState([
         {
             "CurrencyCode": "EUR",
-            "RateDate": "2020-06-01T00:00:00+03:00",
-            "SaleRate": "7.58195",
-            "PurchaseRate": "7.62595"
-        },
-        {
-            "CurrencyCode": "DKK",
-            "RateDate": "2020-06-01T00:00:00+03:00",
-            "SaleRate": "0.9984",
-            "PurchaseRate": "1.0384"
-        },
-        {
-            "CurrencyCode": "RUB",
-            "RateDate": "2020-06-01T00:00:00+03:00",
-            "SaleRate": "0.09465",
-            "PurchaseRate": "0.09865"
+            "RateDate": "2024-06-01T00:00:00+03:00",
+            "SaleRate": "34.58195",
+            "PurchaseRate": "35.62595"
         },
         {
             "CurrencyCode": "USD",
-            "RateDate": "2020-06-01T00:00:00+03:00",
-            "SaleRate": "6.8086",
-            "PurchaseRate": "6.8486"
+            "RateDate": "2024-06-01T00:00:00+03:00",
+            "SaleRate": "31.086",
+            "PurchaseRate": "32.02306"
         }
     ]);
     useEffect(() => {
@@ -47,7 +35,7 @@ function Home() {
                     PurchaseRate: (parseFloat(currency.PurchaseRate) + Math.random() * 0.1 - 0.05).toFixed(5)
                 }))
             );
-        }, 10000);
+        }, 2000);
 
         return () => clearInterval(interval);
     }, []);
@@ -74,46 +62,64 @@ function Home() {
     const data = [
         {
           name: 'Ocak',
-          uv: 4000,
-          pv: 2400,
+          Expense: 4000,
+          Income: 2400,
           amt: 2400,
         },
         {
           name: 'Şubat',
-          uv: 3000,
-          pv: 1398,
+          Expense: 3000,
+          Income: 1398,
           amt: 2210,
         },
         {
           name: 'Mart',
-          uv: 2000,
-          pv: 9800,
+          Expense: 2000,
+          Income: 9800,
           amt: 2290,
         },
         {
           name: 'Nisan',
-          uv: 2780,
-          pv: 3908,
+          Expense: 2780,
+          Income: 3908,
           amt: 2000,
         },
         {
           name: 'Mayıs',
-          uv: 1890,
-          pv: 4800,
+          Expense: 1890,
+          Income: 4800,
           amt: 2181,
         },
         {
           name: 'Ağustos',
-          uv: 2390,
-          pv: 3800,
+          Expense: 2390,
+          Income: 3800,
           amt: 2500,
         },
         {
           name: 'Eylül',
-          uv: 3490,
-          pv: 4300,
+          Expense: 3490,
+          Income: 4300,
           amt: 2100,
         },
+        {
+            name: 'Ekim',
+            Expense: 3490,
+            Income: 3300,
+            amt: 2100,
+          },
+          {
+            name: 'Kasım',
+            Expense: 3490,
+            Income: 5600,
+            amt: 2100,
+          },
+          {
+            name: 'Aralık',
+            Expense: 3490,
+            Income: 7300,
+            amt: 2100,
+          },
       ];
     
 
@@ -135,14 +141,14 @@ function Home() {
             <div className='card'>
                 <div className='card-inner'>
                     <h3>Balance</h3>
-                    <BsFillArchiveFill className='card_icon'/>
+                    <BsWallet className='card_icon'/>
                 </div>
                 <h1>{balance !== null ? <p>${balance}</p> : <p>Loading...</p>}</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>Currency</h3>
-                    <BsFillBellFill className='card_icon'/>
+                    <BsCurrencyExchange className='card_icon'/>
                 </div>
                 {currencyData.map(currency => (
                 <div key={currency.CurrencyCode}>
@@ -170,8 +176,8 @@ function Home() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="pv" fill="#8884d8" />
-                <Bar dataKey="uv" fill="#82ca9d" />
+                <Bar dataKey="Income" fill="#8884d8" />
+                <Bar dataKey="Expense" fill="#82ca9d" />
                 </BarChart>
             </ResponsiveContainer>
 
@@ -192,8 +198,8 @@ function Home() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="Income" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="Expense" stroke="#82ca9d" />
                 </LineChart>
             </ResponsiveContainer>
 
