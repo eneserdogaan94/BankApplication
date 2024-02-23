@@ -55,4 +55,23 @@
     */
     z-index: 12 !important;
   }
-  
+  .sidebar-submenu {
+    padding: 0;
+    list-style-type: none;
+    background-color: #1f2a3a; /* Alt menü için biraz daha koyu bir arka plan rengi */
+}
+
+.sidebar-submenu .sidebar-list-item {
+    padding: 10px 20px 10px 40px; /* Alt menü öğeleri için sol boşluğu artırın */
+    font-size: 16px; /* Alt menü öğeleri için biraz daha küçük bir yazı tipi boyutu */
+}
+
+.sidebar-submenu .sidebar-list-item:hover {
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.sidebar-submenu .sidebar-list-item > a {
+    text-decoration: none;
+    color: #ffffff;
+}

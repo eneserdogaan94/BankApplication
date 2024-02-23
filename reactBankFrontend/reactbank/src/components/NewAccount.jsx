@@ -7,6 +7,7 @@ function Home() {
     const [accounts, setAccounts] = useState([]);
     const [balance, setBalance]=useState(null);
     const [username, setUsername] = useState('');
+    const [name,setName] =useState('');
     const [accountName, setAccountName] = useState('');
     const [userId, setUserId] = useState('');
     const [currencyData, setCurrencyData] = useState([
@@ -82,31 +83,6 @@ function Home() {
 
         <div className='main-cards'>
            
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3>Account</h3>
-                    <BsPeopleFill className='card_icon'/>
-                </div>
-                <h1>{accountName}</h1>
-            </div>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3>Balance</h3>
-                    <BsWallet className='card_icon'/>
-                </div>
-                <h1>{balance !== null ? <p>${balance}</p> : <p>Loading...</p>}</h1>
-            </div>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3>Currency</h3>
-                    <BsCurrencyExchange className='card_icon'/>
-                </div>
-                {currencyData.map(currency => (
-                <div key={currency.CurrencyCode}>
-                    <p>{currency.CurrencyCode}: {currency.PurchaseRate}</p>
-                </div>
-            ))}
-            </div>
         </div>
     </main>
   )

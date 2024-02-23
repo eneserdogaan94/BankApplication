@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsBank2, BsGrid1X2Fill, BsSendArrowDown, BsClockHistory, BsPeopleFill, BsFillGearFill } from 'react-icons/bs';
 
 function Sidebar({ openSidebarToggle, OpenSidebar, onComponentChange }) {
+    const [openSubmenu, setOpenSubmenu] = useState(false);
+    const [openSubmenu2, setOpenSubmenu2] = useState(false);
+    const toggleSubmenu = () => {
+        setOpenSubmenu(!openSubmenu);
+    };
+    const toggleSubmenu2 = () => {
+        setOpenSubmenu2(!openSubmenu2);
+    };
+
     return (
         <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
             <div className='sidebar-title'>
@@ -15,15 +24,32 @@ function Sidebar({ openSidebarToggle, OpenSidebar, onComponentChange }) {
                 <li className='sidebar-list-item' onClick={() => onComponentChange('Dashboard')}>
                     <BsGrid1X2Fill className='icon' /> Dashboard
                 </li>
-                <li className='sidebar-list-item' onClick={() => onComponentChange('Transaction')}>
-                    <BsSendArrowDown className='icon' /> Transaction
+                <li className='sidebar-list-item' onClick={toggleSubmenu}>
+                    <BsSendArrowDown className='icon' /> Transactions
                 </li>
-                <li className='sidebar-list-item' onClick={() => onComponentChange('TransactionList')}>
-                    <BsClockHistory className='icon' /> Transaction History
-                </li>
-                <li className='sidebar-list-item' onClick={() => onComponentChange('AccountSettings')}>
+                {openSubmenu && (
+                    <ul className='sidebar-submenu'>
+                        <li className='sidebar-list-item' onClick={() => onComponentChange('Transaction')}>
+                            New Transaction
+                        </li>
+                        <li className='sidebar-list-item' onClick={() => onComponentChange('TransactionList')}>
+                            Transaction History
+                        </li>
+                    </ul>
+                )}
+                <li className='sidebar-list-item' onClick={toggleSubmenu2}>
                     <BsPeopleFill className='icon' /> Account Settings
                 </li>
+                {openSubmenu2 && (
+                    <ul className='sidebar-submenu'>
+                        <li className='sidebar-list-item' onClick={() => onComponentChange('AccountUpdate')}>
+                            Account Update
+                        </li>
+                        <li className='sidebar-list-item' onClick={() => onComponentChange('NewAccount')}>
+                            New Account
+                        </li>
+                    </ul>
+                )}
                 <li className='sidebar-list-item' onClick={() => onComponentChange('Settings')}>
                     <BsFillGearFill className='icon' /> Settings
                 </li>
