@@ -17,7 +17,25 @@ public class UserController {
     // Kullanıcı kaydı
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) {
-        return userRepository.save(user);
+        User userControl=userRepository.findByUsername(user.getUsername());
+        if (userControl==null){
+            return userRepository.save(user);
+        }else{
+            return null;
+        }
+    }
+
+    @PostMapping("/changePassword")
+    public User changePassword(@RequestBody User user) {
+        User userControl=userRepository.findByUsername(user.getUsername());
+        if(userControl!=null){
+            User changedPasswordUser=userRepository.findByUsername(user.getUsername());
+            changedPasswordUser.setPassword(user.getPassword());
+            return userRepository.save(changedPasswordUser);
+        }else{
+            return null;
+        }
+
     }
 
     // Kullanıcı girişi (Basitleştirilmiş)

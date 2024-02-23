@@ -7,27 +7,29 @@ import { useNavigate } from 'react-router-dom';
 function ForgotPassword() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email,setEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     const handleChange = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/users/changePassword', {
+            const response = await axios.post('http://localhost:8080/api/users/register', {
                 username,
-                password
+                password,
+                email,
             });
             if (response && response.data) {
                 navigate('/');
-                console.log('Changed Password:', response.data);
+                console.log('Registered:', response.data);
             } else {
                 console.log('Unexpected response format');
             }
         } catch (error) {
             if (error.response && error.response.data) {
-                setErrorMessage('Change password failed: ' + error.response.data.message);
+                setErrorMessage('Register failed: ' + error.response.data.message);
             } else {
-                setErrorMessage('Change password failed: ' + error.message);
+                setErrorMessage('Register failed: ' + error.message);
             }
         }
     };
@@ -35,7 +37,7 @@ function ForgotPassword() {
     return (
         <div className='wrapper'>
             <form onSubmit={handleChange}>
-                <h1>Forgot Password</h1>
+                <h1>Register</h1>
                 <div className='input-box'>
                     <FaUser className='icon'/>
                     <input
@@ -43,6 +45,16 @@ function ForgotPassword() {
                         value={username}
                         placeholder='Username'
                         onChange={(e) => setUsername(e.target.value)}
+                    />
+                    
+                </div>
+                <div className='input-box'>
+                    <FaUser className='icon'/>
+                    <input
+                        type="text"
+                        value={email}
+                        placeholder='Email'
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     
                 </div>
@@ -55,7 +67,7 @@ function ForgotPassword() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="submit">Change Password</button>
+                <button type="submit">Register</button>
             </form>
             {errorMessage && <div>{errorMessage}</div>}
         </div>
