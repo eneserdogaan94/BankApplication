@@ -49,7 +49,7 @@ public class AccountController {
     }
 
     @GetMapping("/by-username/{userName}")
-    public Account getAccountByUserId(@PathVariable("userName") String userName) {
+    public Account getAccountByUserName(@PathVariable("userName") String userName) {
         User user = userService.getUserByUsername(userName);
         Account account=accountRepository.findByUserId(user.getId());
         return account;

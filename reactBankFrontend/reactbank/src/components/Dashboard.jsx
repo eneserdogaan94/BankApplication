@@ -151,7 +151,7 @@ function Home() {
                     <h3>Balance</h3>
                     <BsWallet className='card_icon'/>
                 </div>
-                <h1>{balance !== null ? <p>${balance}</p> : <p>Loading...</p>}</h1>
+                <h1>{balance !== null ? <p>₺{balance}</p> : <p>Loading...</p>}</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
