@@ -1,91 +1,60 @@
-import React, { useState,useEffect } from 'react'
-import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, BsCurrencyExchange, BsWallet} from 'react-icons/bs'
- import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
- import '../css/Dashboard.css';
- import axios from 'axios';
-function Home() {
-    const [accounts, setAccounts] = useState([]);
-    const [balance, setBalance]=useState(null);
-    const [username, setUsername] = useState('');
-    const [name,setName] =useState('');
+import React, { useState } from 'react';
+import axios from 'axios';
+import '../css/NewAccount.css'; // Stil dosyasını import et
+
+function NewAccount() {
     const [accountName, setAccountName] = useState('');
-    const [userId, setUserId] = useState('');
-    const [currencyData, setCurrencyData] = useState([
-        {
-            "CurrencyCode": "EUR",
-            "RateDate": "2024-06-01T00:00:00+03:00",
-            "SaleRate": "34.58195",
-            "PurchaseRate": "35.62595"
-        },
-        {
-            "CurrencyCode": "USD",
-            "RateDate": "2024-06-01T00:00:00+03:00",
-            "SaleRate": "31.086",
-            "PurchaseRate": "32.02306"
+    const [balance, setBalance] = useState(0);
+    const [userId,setUserId] =useState('');
+    const [number,setNumber] =useState()
+
+    const handleSubmit = async (e) => {
+        setUserId(localStorage.getItem('id'));
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8080/api/accounts/createAccount', {
+                name: accountName,
+                balance: 0,
+                userId:userId,
+                number:number,
+
+
+            });
+            console.log('Account created:', response.data);
+            // İsteğe bağlı: Başarılı olursa kullanıcıyı bilgilendirme veya yönlendirme yapabilirsiniz.
+        } catch (error) {
+            console.error('Error creating account:', error);
+            // İsteğe bağlı: Hata durumunda kullanıcıyı bilgilendirme yapabilirsiniz.
         }
-    ]);
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrencyData(currentData =>
-                currentData.map(currency => ({
-                    ...currency,
-                    PurchaseRate: (parseFloat(currency.PurchaseRate) + Math.random() * 0.1 - 0.05).toFixed(5)
-                }))
-            );
-        }, 2000);
+    };
 
-        return () => clearInterval(interval);
-    }, []);
-    useEffect(() => {
-        setUsername(localStorage.getItem('username'));
-        setUserId(localStorage.getItem('userId'));
-    }, []);
-    useEffect(() => {
-        const fetchAccountBalance = async () => {
-            if (username) {
-                try {
-                    const response = await axios.get(`http://localhost:8080/api/accounts/by-username/${username}`);
-                    console.log(response.data);
-                    setAccounts(response.data);
-                    setBalance(response.data.balance);
-                    setAccountName(response.data.name);
-                } catch (error) {
-                    console.error('Error fetching account balance:', error);
-                }
-            }
-        };
-
-        fetchAccountBalance();
-    }, [username]); 
-    useEffect(() => {
-        const fetchAccountBalance = async () => {
-            if (userId) {
-                try {
-                    const response = await axios.get(`http://localhost:8080/api/accounts/by-username/${username}`);
-                    console.log(response.data);
-                    setBalance(response.data.balance);
-                    setAccountName(response.data.name);
-                } catch (error) {
-                    console.error('Error fetching account balance:', error);
-                }
-            }
-        };
-
-        fetchAccountBalance();
-    }, [userId]); 
-    
-
-  return (
-    <main className='main-container'>
-        <div className='main-title'>
-            <h3>Dashboard</h3>
+    return (
+        
+        <div className="new-account-container">
+            <h2>Create New Account</h2>
+            <form className="new-account-form" onSubmit={handleSubmit}>
+                <label>
+                    Account Name:
+                    <input
+                        type="text"
+                        value={accountName}
+                        onChange={(e) => setAccountName(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    Identification Number:
+                    <input
+                        type="number"
+                        value={number}
+                        onChange={(e) => setNumber(e.target.value)}
+                        required
+                    />
+                </label>
+                <button type="submit">Create Account</button>
+            </form>
         </div>
-
-        <div className='main-cards'>
-           
-        </div>
-    </main>
-  )
+    );
 }
 
-export default Home
+export default NewAccount;
