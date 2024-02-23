@@ -4,10 +4,11 @@ import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, 
  import '../css/Dashboard.css';
  import axios from 'axios';
 function Home() {
-
+    const [accounts, setAccounts] = useState([]);
     const [balance, setBalance]=useState(null);
     const [username, setUsername] = useState('');
     const [accountName, setAccountName] = useState('');
+    const [userId, setUserId] = useState('');
     const [currencyData, setCurrencyData] = useState([
         {
             "CurrencyCode": "EUR",
@@ -36,6 +37,7 @@ function Home() {
     }, []);
     useEffect(() => {
         setUsername(localStorage.getItem('username'));
+        setUserId(localStorage.getItem('userId'));
     }, []);
     useEffect(() => {
         const fetchAccountBalance = async () => {
@@ -43,9 +45,9 @@ function Home() {
                 try {
                     const response = await axios.get(`http://localhost:8080/api/accounts/by-username/${username}`);
                     console.log(response.data);
+                    setAccounts(response.data);
                     setBalance(response.data.balance);
                     setAccountName(response.data.name);
-                    localStorage.setItem('accountName',response.data.name)
                 } catch (error) {
                     console.error('Error fetching account balance:', error);
                 }
@@ -54,81 +56,22 @@ function Home() {
 
         fetchAccountBalance();
     }, [username]); 
-    
-    const data = [
-        {
-          name: 'Jan',
-          Expense: 4000,
-          Income: 2400,
-          amt: 2400,
-        },
-        {
-          name: 'Feb',
-          Expense: 3000,
-          Income: 1398,
-          amt: 2210,
-        },
-        {
-          name: 'Mar',
-          Expense: 2000,
-          Income: 9800,
-          amt: 2290,
-        },
-        {
-          name: 'Apr',
-          Expense: 2780,
-          Income: 3908,
-          amt: 2000,
-        },
-        {
-          name: 'May',
-          Expense: 1890,
-          Income: 4800,
-          amt: 2181,
-        },
-        {
-          name: 'June',
-          Expense: 2390,
-          Income: 3800,
-          amt: 2500,
-        },
-        {
-          name: 'July',
-          Expense: 3490,
-          Income: 4300,
-          amt: 2100,
-        },
-        {
-            name: 'August',
-            Expense: 3490,
-            Income: 3300,
-            amt: 2100,
-          },
-          {
-            name: 'September',
-            Expense: 3490,
-            Income: 5600,
-            amt: 2100,
-          },
-          {
-            name: 'October',
-            Expense: 3390,
-            Income: 7300,
-            amt: 2100,
-          },
-          {
-            name: 'November',
-            Expense: 2345,
-            Income: 12032,
-            amt: 2100,
-          },
-          {
-            name: 'December',
-            Expense: 7300,
-            Income: 12032,
-            amt: 2100,
-          },
-      ];
+    useEffect(() => {
+        const fetchAccountBalance = async () => {
+            if (userId) {
+                try {
+                    const response = await axios.get(`http://localhost:8080/api/accounts/by-username/${username}`);
+                    console.log(response.data);
+                    setBalance(response.data.balance);
+                    setAccountName(response.data.name);
+                } catch (error) {
+                    console.error('Error fetching account balance:', error);
+                }
+            }
+        };
+
+        fetchAccountBalance();
+    }, [userId]); 
     
 
   return (
@@ -164,53 +107,6 @@ function Home() {
                 </div>
             ))}
             </div>
-        </div>
-
-        <div className='charts'>
-            <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-            }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="Income" fill="#8884d8" />
-                <Bar dataKey="Expense" fill="#82ca9d" />
-                </BarChart>
-            </ResponsiveContainer>
-
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                width={500}
-                height={300}
-                data={data}
-                margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                }}
-                >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="Income" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="Expense" stroke="#82ca9d" />
-                </LineChart>
-            </ResponsiveContainer>
-
         </div>
     </main>
   )

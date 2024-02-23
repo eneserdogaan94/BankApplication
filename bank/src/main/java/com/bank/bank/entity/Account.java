@@ -20,7 +20,6 @@ public class Account {
     private BigDecimal balance;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
     private UUID userId;
 
     public Account(String number, String name, BigDecimal balance, String userId) {
