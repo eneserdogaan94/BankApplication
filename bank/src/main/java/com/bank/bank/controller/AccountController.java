@@ -7,6 +7,8 @@ import com.bank.bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
@@ -17,7 +19,7 @@ public class AccountController {
     private UserService userService;
 
     // Hesap oluşturma
-    @PostMapping
+    @PostMapping("/createAccount")
     public Account createAccount(@RequestBody Account account) {
         return accountRepository.save(account);
     }
@@ -27,7 +29,7 @@ public class AccountController {
     public Account updateAccount(@PathVariable String id, @RequestBody Account accountDetails) {
         // Hesap güncelleme işlemleri
         Account updateAccount = accountRepository.getReferenceById(id);
-        updateAccount.setUser(accountDetails.getUser());
+        updateAccount.setUserId(accountDetails.getUserId());
         updateAccount.setBalance(accountDetails.getBalance());
         updateAccount.setName(accountDetails.getName());
         updateAccount.setNumber(accountDetails.getNumber());

@@ -1,44 +1,46 @@
 package com.bank.bank.entity;
 
+import com.bank.bank.service.UserService;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 public class Account {
     @Id
-    private String id;
+    @GeneratedValue
+    private UUID id;
     private String number;
     private String name;
     private BigDecimal balance;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @ManyToOne
-    private User user;
+    private UUID userId;
 
-    public Account(String id, String number, String name, BigDecimal balance, LocalDateTime createdAt, LocalDateTime updatedAt, User user) {
-        this.id = id;
+    public Account(String number, String name, BigDecimal balance, String userId) {
         this.number = number;
         this.name = name;
         this.balance = balance;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
-        this.user = user;
+        this.userId = UUID.fromString(userId);
     }
     public Account(){
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -82,13 +84,15 @@ public class Account {
         this.updatedAt = updatedAt;
     }
 
-    public User getUser() {
-        return user;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public UUID getUserId() {
+        return userId;
     }
 
-
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
 }
