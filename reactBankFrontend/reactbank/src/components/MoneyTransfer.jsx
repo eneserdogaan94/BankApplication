@@ -4,7 +4,7 @@ import '../css/MoneyTransfer.css';
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
 import { useNavigate } from 'react-router-dom';
-import { getFromLocalStorage } from './LocalStorageService';
+import { getFromLocalStorage } from '../services/LocalStorageService';
 
 function MoneyTransfer() {
     const [fromAccountNumber, setFromAccountNumber] = useState(getFromLocalStorage('accountNumber'));

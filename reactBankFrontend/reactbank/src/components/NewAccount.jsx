@@ -4,7 +4,7 @@ import '../css/NewAccount.css'; // Stil dosyasını import et
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
 import { useNavigate } from 'react-router-dom';
-import { getFromLocalStorage } from './LocalStorageService';
+import { getFromLocalStorage } from '../services/LocalStorageService';
 
 function NewAccount() {
     const [accountName, setAccountName] = useState('');

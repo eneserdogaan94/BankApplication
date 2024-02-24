@@ -5,7 +5,7 @@ import '../css/LoginForm.css'
 import { useNavigate } from 'react-router-dom';
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
-import { saveToLocalStorage } from './LocalStorageService';
+import { saveToLocalStorage } from '../services/LocalStorageService';
 
 function LoginForm() {
     const [username, setUsername] = useState('');

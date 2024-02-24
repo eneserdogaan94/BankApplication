@@ -1,9 +1,9 @@
 package com.bank.bank.controller;
 
-import com.bank.bank.entity.Account;
 import com.bank.bank.entity.LoginRequest;
 import com.bank.bank.entity.User;
 import com.bank.bank.repository.UserRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ public class UserController {
 
     // Kullanıcı kaydı
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user) {
+    public User registerUser(@RequestBody @NotNull User user) {
         User userControl=userRepository.findByUsername(user.getUsername());
         if (userControl==null){
             return userRepository.save(user);
@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping("/changePassword")
-    public User changePassword(@RequestBody User user) {
+    public User changePassword(@RequestBody @NotNull User user) {
         User userControl=userRepository.findByUsername(user.getUsername());
         if(userControl!=null){
             User changedPasswordUser=userRepository.findByUsername(user.getUsername());
@@ -38,7 +38,6 @@ public class UserController {
 
     }
 
-    // Kullanıcı girişi (Basitleştirilmiş)
     @PostMapping("/login")
     public User loginUser(@RequestBody LoginRequest loginRequest) throws Throwable {
         try {

@@ -11,11 +11,8 @@ function Header({OpenSidebar}) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-      // Oturum bilgilerini temizle
       localStorage.removeItem('token');
       localStorage.clear();
-
-      // Kullanıcıyı giriş sayfasına yönlendir
       navigate("/");
   };
     const toggleMenu = () => {

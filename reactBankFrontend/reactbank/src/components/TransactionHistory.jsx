@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/TransactionHistory.css';
-import { getFromLocalStorage } from './LocalStorageService';
+import { getFromLocalStorage } from '../services/LocalStorageService';
 
 function TransactionHistory() {
     const [transactions, setTransactions] = useState([]);
