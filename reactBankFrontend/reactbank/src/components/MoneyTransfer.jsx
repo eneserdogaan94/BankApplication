@@ -4,9 +4,10 @@ import '../css/MoneyTransfer.css';
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
 import { useNavigate } from 'react-router-dom';
+import { getFromLocalStorage } from './LocalStorageService';
 
 function MoneyTransfer() {
-    const [fromAccountNumber, setFromAccountNumber] = useState(localStorage.getItem('accountNumber'));
+    const [fromAccountNumber, setFromAccountNumber] = useState(getFromLocalStorage('accountNumber'));
     const [toAccountNumber, setToAccountNumber] = useState('');
     const [amount, setAmount] = useState(0);
 
@@ -20,7 +21,6 @@ function MoneyTransfer() {
             });
             alertify.success('Transfer successful:');
         } catch (error) {
-            console.error('Error during transfer:', error);
             alertify.error('Error during transfer');
         }
     };

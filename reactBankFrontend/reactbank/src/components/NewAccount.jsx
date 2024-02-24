@@ -4,6 +4,7 @@ import '../css/NewAccount.css'; // Stil dosyasını import et
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
 import { useNavigate } from 'react-router-dom';
+import { getFromLocalStorage } from './LocalStorageService';
 
 function NewAccount() {
     const [accountName, setAccountName] = useState('');
@@ -11,12 +12,10 @@ function NewAccount() {
     const [number,setNumber] =useState('')
     const navigate = useNavigate();
     useEffect(() => {
-        setUserId(localStorage.getItem('id'));
+        setUserId(getFromLocalStorage('id'));
     }, []);
     
     const handleSubmit = async (e) => {
-       
-        console.log(userId)
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/accounts/createAccount', {

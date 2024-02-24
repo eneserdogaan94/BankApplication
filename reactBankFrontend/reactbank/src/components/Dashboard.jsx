@@ -3,6 +3,7 @@ import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, 
  import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
  import '../css/Dashboard.css';
  import axios from 'axios';
+ import { saveToLocalStorage, getFromLocalStorage } from './LocalStorageService';
 function Home() {
 
     const [balance, setBalance]=useState(null);
@@ -22,6 +23,7 @@ function Home() {
             "PurchaseRate": "32.02306"
         }
     ]);
+    
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrencyData(currentData =>
@@ -35,19 +37,18 @@ function Home() {
         return () => clearInterval(interval);
     }, []);
     useEffect(() => {
-        setUsername(localStorage.getItem('username'));
+        setUsername(getFromLocalStorage('username'));
     }, []);
     useEffect(() => {
         const fetchAccountBalance = async () => {
             if (username) {
                 try {
                     const response = await axios.get(`http://localhost:8080/api/accounts/by-username/${username}`);
-                    console.log(response.data);
                     setBalance(response.data.balance);
                     setAccountName(response.data.name);
-                    localStorage.setItem('accountName',response.data.name)
-                    localStorage.setItem('accountNumber',response.data.number)
-                    localStorage.setItem('accountId',response.data.id)
+                   saveToLocalStorage('accountName',response.data.name);
+                   saveToLocalStorage('accountNumber',response.data.number);
+                    saveToLocalStorage('accountId',response.data.id);
                 } catch (error) {
                     console.error('Error fetching account balance:', error);
                 }

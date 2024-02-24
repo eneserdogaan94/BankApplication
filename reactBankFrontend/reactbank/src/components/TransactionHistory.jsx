@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/TransactionHistory.css';
+import { getFromLocalStorage } from './LocalStorageService';
 
 function TransactionHistory() {
     const [transactions, setTransactions] = useState([]);
-    const [accountName,setAccountName] = useState(localStorage.getItem('accountName'))
+    const [accountName,setAccountName] = useState(getFromLocalStorage('accountName'))
     useEffect(() => {
         
         const fetchTransactions = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/api/transactions/account/${accountName}`);
                 setTransactions(response.data);
-                console.log(response.data)
             } catch (error) {
                 console.error('Error fetching transactions:', error);
             }

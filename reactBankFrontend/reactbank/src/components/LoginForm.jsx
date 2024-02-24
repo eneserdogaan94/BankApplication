@@ -5,6 +5,7 @@ import '../css/LoginForm.css'
 import { useNavigate } from 'react-router-dom';
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
+import { saveToLocalStorage } from './LocalStorageService';
 
 function LoginForm() {
     const [username, setUsername] = useState('');
@@ -21,15 +22,13 @@ function LoginForm() {
                 password
             });
             if (response && response.data) {
-                    localStorage.setItem('username', username);
-                    localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('id',response.data.id);
-                    localStorage.setItem('password',response.data.password);
+                    saveToLocalStorage('username',username);
+                    saveToLocalStorage('token',response.data.token);
+                    saveToLocalStorage('id',response.data.id);
+                    saveToLocalStorage('password',response.data.password);
                     alertify.success('Login Success');
                 navigate('/home');
-                console.log('Login successful:', response.data);
             } else {
-                console.log('Unexpected response format');
                 alertify.error('Your username or password wrong.');
             }
         } catch (error) {
