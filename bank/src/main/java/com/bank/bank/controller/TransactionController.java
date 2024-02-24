@@ -27,8 +27,8 @@ public class TransactionController {
     }
 
     // İşlem geçmişini görüntüleme
-    @GetMapping("/account/{accountId}")
-    public List<Transaction> getTransactionHistory(@PathVariable UUID accountId) {
-        return transactionService.getTransactionsByAccountId(accountId);
+    @GetMapping("/account/{accountName}")
+    public List<Transaction> getTransactionHistory(@PathVariable String accountName) {
+        return transactionService.getTransactionsByAccountName(accountName);
     }
 }

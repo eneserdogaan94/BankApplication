@@ -50,4 +50,7 @@ public class TransactionService {
     public List<Transaction> getTransactionsByAccountId(UUID accountId) {
         return transactionRepository.findByAccountId(accountId);
     }
+    public List<Transaction> getTransactionsByAccountName(String accountName) {
+        return transactionRepository.findByAccountName(accountName);
+    }
 }
