@@ -46,6 +46,8 @@ function Home() {
                     setBalance(response.data.balance);
                     setAccountName(response.data.name);
                     localStorage.setItem('accountName',response.data.name)
+                    localStorage.setItem('accountNumber',response.data.number)
+                    localStorage.setItem('accountId',response.data.id)
                 } catch (error) {
                     console.error('Error fetching account balance:', error);
                 }

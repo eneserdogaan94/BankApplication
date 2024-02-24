@@ -1,54 +1,49 @@
-    
-.new-account-container {
+.money-transfer-container {
     max-width: 420px;
     width: 100%;
-    background: #33333300;
+    background: #333;
     color: white;
     border-radius: 10px;
     padding: 30px 40px;
-    margin: auto;
-    margin-top: 50px;
-    margin-left: 100%;
+    margin: 100% 100%;
+    margin-top: 100px;
     box-sizing: border-box;
 }
 
-
-.new-account-container h2 {
+.money-transfer-container h2 {
     font-size: 36px;
     text-align: center;
 }
 
-.new-account-form {
+.money-transfer-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     margin-top: 30px;
-    text-align: center;
 }
 
-.new-account-form label {
+.money-transfer-form label {
     font-size: 18px;
 }
 
-.new-account-form input {
-    width: calc(100% - 40px); /* Sağ ve sol padding değerlerini çıkarın */
+.money-transfer-form input {
+    width: calc(100% - 40px);
     padding: 10px 20px;
     margin: 0 auto;
-    box-sizing: border-box; /* Padding ve border genişliği dahil */
+    box-sizing: border-box;
     background: transparent;
     outline: none;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     font-size: 16px;
     color: white;
-    padding: 10px 20px;
 }
 
-.new-account-form input::placeholder {
+.money-transfer-form input::placeholder {
     color: white;
 }
 
-.new-account-form button {
+.money-transfer-form button {
     width: 100%;
     height: 45px;
     background: #fff;

@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import Dashboard from './Dashboard';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import AccountUpdate from './AccountUpdate';
 import NewAccount from './NewAccount';
-import Transaction from './Transaction';
+import MoneyTransfer from './MoneyTransfer';
 import TransactionList from './TransactionHistory';
-import Settings from './Settings'
 import '../css/Home.css';
 
 function Home() {
@@ -25,16 +23,12 @@ function Home() {
         switch (selectedComponent) {
             case 'Dashboard':
                 return <Dashboard />;
-            case 'AccountUpdate':
-                return <AccountUpdate />;
-                case 'NewAccount':
+            case 'NewAccount':
                 return <NewAccount />;
-            case 'Transaction':
-                return <Transaction />;
-            case 'Transaction History':
+            case 'MoneyTransfer':
+                return <MoneyTransfer />;
+            case 'TransactionHistory':
                 return <TransactionList />;
-            case 'Settings':
-                return <Settings />;
             default:
                 return <Dashboard />;
         }

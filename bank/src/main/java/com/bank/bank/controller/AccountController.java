@@ -3,6 +3,7 @@ package com.bank.bank.controller;
 import com.bank.bank.entity.Account;
 import com.bank.bank.entity.User;
 import com.bank.bank.repository.AccountRepository;
+import com.bank.bank.service.AccountService;
 import com.bank.bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ public class AccountController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AccountService accountService;
+
     // Hesap oluşturma
     @PostMapping("/createAccount")
     public Account createAccount(@RequestBody Account account) {
@@ -25,14 +29,14 @@ public class AccountController {
     }
 
     // Hesap güncelleme
-    @PutMapping("/{id}")
-    public Account updateAccount(@PathVariable String id, @RequestBody Account accountDetails) {
+    @PutMapping("/accountUpdate/{id}")
+    public Account updateAccount(@PathVariable String id) {
         // Hesap güncelleme işlemleri
         Account updateAccount = accountRepository.getReferenceById(id);
-        updateAccount.setUserId(accountDetails.getUserId());
-        updateAccount.setBalance(accountDetails.getBalance());
-        updateAccount.setName(accountDetails.getName());
-        updateAccount.setNumber(accountDetails.getNumber());
+        updateAccount.setUserId(updateAccount.getUserId());
+        updateAccount.setBalance(updateAccount.getBalance());
+        updateAccount.setName(updateAccount.getName());
+        updateAccount.setNumber(updateAccount.getNumber());
         return accountRepository.save(updateAccount);
     }
 
@@ -54,5 +58,10 @@ public class AccountController {
         Account account=accountRepository.findByUserId(user.getId());
         return account;
 
+    }
+    @GetMapping("/by-number/{number}")
+    public  Account getAccountByNumber(@PathVariable("number") String number){
+        Account account=accountService.getAccountByNumber(number);
+        return account;
     }
 }

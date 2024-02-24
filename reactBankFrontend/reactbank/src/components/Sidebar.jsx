@@ -29,29 +29,16 @@ function Sidebar({ openSidebarToggle, OpenSidebar, onComponentChange }) {
                 </li>
                 {openSubmenu && (
                     <ul className='sidebar-submenu'>
-                        <li className='sidebar-list-item' onClick={() => onComponentChange('Transaction')}>
-                            New Transaction
+                        <li className='sidebar-list-item' onClick={() => onComponentChange('MoneyTransfer')}>
+                            Money Transfer
                         </li>
-                        <li className='sidebar-list-item' onClick={() => onComponentChange('TransactionList')}>
+                        <li className='sidebar-list-item' onClick={() => onComponentChange('TransactionHistory')}>
                             Transaction History
                         </li>
                     </ul>
                 )}
-                <li className='sidebar-list-item' onClick={toggleSubmenu2}>
-                    <BsPeopleFill className='icon' /> Account Settings
-                </li>
-                {openSubmenu2 && (
-                    <ul className='sidebar-submenu'>
-                        <li className='sidebar-list-item' onClick={() => onComponentChange('AccountUpdate')}>
-                            Account Update
-                        </li>
-                        <li className='sidebar-list-item' onClick={() => onComponentChange('NewAccount')}>
-                            New Account
-                        </li>
-                    </ul>
-                )}
-                <li className='sidebar-list-item' onClick={() => onComponentChange('Settings')}>
-                    <BsFillGearFill className='icon' /> Settings
+                <li className='sidebar-list-item' onClick={() => onComponentChange('NewAccount')}>
+                    <BsPeopleFill className='icon' /> New Account
                 </li>
             </ul>
         </aside>

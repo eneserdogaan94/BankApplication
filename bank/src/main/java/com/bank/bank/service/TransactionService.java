@@ -23,9 +23,9 @@ public class TransactionService {
     private AccountRepository accountRepository;
 
     @Transactional
-    public Transaction createTransaction(String fromAccountId, String toAccountId, BigDecimal amount) {
-        Account fromAccount = accountRepository.findById(fromAccountId).orElseThrow();
-        Account toAccount = accountRepository.findById(toAccountId).orElseThrow();
+    public Transaction createTransaction(String fromAccountNumber, String toAccountNumber, BigDecimal amount) {
+        Account fromAccount = accountRepository.findByNumber(fromAccountNumber);
+        Account toAccount = accountRepository.findByNumber(toAccountNumber);
 
         if (fromAccount.getBalance().compareTo(amount) >= 0) {
             fromAccount.setBalance(fromAccount.getBalance().subtract(amount));

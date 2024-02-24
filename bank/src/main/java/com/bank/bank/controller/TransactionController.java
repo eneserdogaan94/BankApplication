@@ -20,8 +20,8 @@ public class TransactionController {
     @PostMapping("/transfer")
     public Transaction initiateTransfer(@RequestBody TransferRequest transferRequest) {
         return transactionService.createTransaction(
-                transferRequest.getFromAccountId(),
-                transferRequest.getToAccountId(),
+                transferRequest.getFromAccountNumber(),
+                transferRequest.getToAccountNumber(),
                 transferRequest.getAmount()
         );
     }

@@ -8,24 +8,8 @@ function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
 
-    const handleRememberMe = (e) => {
-    setRememberMe(e.target.checked);
-    };
-    useEffect(() => {
-        const savedUsername = localStorage.getItem('username');
-        const savedPassword = localStorage.getItem('password');
-        const savedToken = localStorage.getItem('token');
-        if (savedUsername && savedToken && savedPassword) {
-            setUsername(savedUsername);
-            setPassword(savedPassword);
-            // Token'ı doğrulama veya kullanıcıyı otomatik olarak giriş yaptırma işlemleri
-        }else{
-            setErrorMessage("User unathorized.");
-        }
-    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -35,12 +19,10 @@ function LoginForm() {
                 password
             });
             if (response && response.data) {
-                if (rememberMe) {
                     localStorage.setItem('username', username);
                     localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('userId',response.data.id);
+                    localStorage.setItem('id',response.data.id);
                     localStorage.setItem('password',response.data.password);
-                }
                 navigate('/home');
                 console.log('Login successful:', response.data);
             } else {
@@ -80,13 +62,6 @@ function LoginForm() {
                     />
                 </div>
                 <div className="remember-forgot">
-                    <label>
-                    <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={handleRememberMe}
-                    />Remember Me
-                    </label>
                     <a href="/forgotPassword">Forgot Password</a>
                 </div>
                 <button type="submit">Login</button>

@@ -1,0 +1,43 @@
+.transaction-list-container {
+    max-width: 100%;
+    width: 100%;
+    background: #33333300;
+    color: white;
+    border-radius: 10px;
+    padding: 30px 40px;
+    margin: 100% 100%;
+    margin-top: 50px;
+    box-sizing: border-box;
+}
+
+.transaction-list-container h2 {
+    font-size: 36px;
+    text-align: center;
+}
+
+.transaction-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.transaction-list-table th,
+.transaction-list-table td {
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.938);
+    text-align: left;
+}
+
+.transaction-list-table th {
+    background-color: #555;
+    color: white;
+}
+
+.transaction-list-table td {
+    background-color: #666;
+    color: white;
+}
+
+.transaction-list-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}

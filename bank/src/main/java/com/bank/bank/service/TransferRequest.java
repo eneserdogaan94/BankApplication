@@ -3,25 +3,30 @@ package com.bank.bank.service;
 import java.math.BigDecimal;
 
 public class TransferRequest {
-    private String fromAccountId;
-    private String toAccountId;
+    private String fromAccountNumber;
+    private String toAccountNumber;
     private BigDecimal amount;
 
-    // Getters and Setters
-    public String getFromAccountId() {
-        return fromAccountId;
+    public TransferRequest(String fromAccountNumber, String toAccountNumber, BigDecimal amount) {
+        this.fromAccountNumber = fromAccountNumber;
+        this.toAccountNumber = toAccountNumber;
+        this.amount = amount;
     }
 
-    public void setFromAccountId(String fromAccountId) {
-        this.fromAccountId = fromAccountId;
+    public String getFromAccountNumber() {
+        return fromAccountNumber;
     }
 
-    public String getToAccountId() {
-        return toAccountId;
+    public void setFromAccountNumber(String fromAccountNumber) {
+        this.fromAccountNumber = fromAccountNumber;
     }
 
-    public void setToAccountId(String toAccountId) {
-        this.toAccountId = toAccountId;
+    public String getToAccountNumber() {
+        return toAccountNumber;
+    }
+
+    public void setToAccountNumber(String toAccountNumber) {
+        this.toAccountNumber = toAccountNumber;
     }
 
     public BigDecimal getAmount() {
