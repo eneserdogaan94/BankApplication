@@ -1,4 +1,5 @@
-import React from 'react'
+import React,{useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import 
  {BsFillBellFill, BsFillEnvelopeFill, BsPersonCircle, BsSearch, BsJustify}
  from 'react-icons/bs'
@@ -6,6 +7,20 @@ import
  import '../css/Header.css';
 
 function Header({OpenSidebar}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+      // Oturum bilgilerini temizle
+      localStorage.removeItem('token');
+      localStorage.clear();
+
+      // Kullanıcıyı giriş sayfasına yönlendir
+      navigate("/");
+  };
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
   return (
     <header className='header'>
         <div className='menu-icon'>
@@ -17,7 +32,14 @@ function Header({OpenSidebar}) {
         <div className='header-right'>
             <BsFillBellFill className='icon'/>
             <BsFillEnvelopeFill className='icon'/>
-            <BsPersonCircle className='icon'/>
+            
+            <BsPersonCircle className="icon" onClick={toggleMenu} />
+            {isOpen && (
+                <ul className="submenu">
+                    <li>Change Account</li>
+                    <li onClick={handleLogout}>Çıkış Yap</li>
+                </ul>
+            )}
         </div>
     </header>
   )
