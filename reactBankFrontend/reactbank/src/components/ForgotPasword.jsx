@@ -3,6 +3,8 @@ import axios from 'axios';
 import {FaUser , FaLock } from "react-icons/fa";
 import '../css/LoginForm.css'
 import { useNavigate } from 'react-router-dom';
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css';
 
 function ForgotPassword() {
     const [username, setUsername] = useState('');
@@ -19,15 +21,15 @@ function ForgotPassword() {
             });
             if (response && response.data) {
                 navigate('/');
-                console.log('Changed Password:', response.data);
+                alertify.success('Password Changed.');
             } else {
-                console.log('Unexpected response format');
+                alertify.error('Username is not found.');
             }
         } catch (error) {
             if (error.response && error.response.data) {
-                setErrorMessage('Change password failed: ' + error.response.data.message);
+                alertify.error('something went wrong');
             } else {
-                setErrorMessage('Change password failed: ' + error.message);
+                alertify.error('something went wrong');
             }
         }
     };
@@ -54,6 +56,9 @@ function ForgotPassword() {
                         placeholder='Password'
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                </div>
+                <div className="remember-forgot">
+                    <a href="/">Return Login Page</a>
                 </div>
                 <button type="submit">Change Password</button>
             </form>

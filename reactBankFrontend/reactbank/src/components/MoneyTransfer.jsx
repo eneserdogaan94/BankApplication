@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../css/MoneyTransfer.css'; // Stil dosyasını import et
+import '../css/MoneyTransfer.css';
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css';
+import { useNavigate } from 'react-router-dom';
 
 function MoneyTransfer() {
     const [fromAccountNumber, setFromAccountNumber] = useState(localStorage.getItem('accountNumber'));
@@ -15,11 +18,10 @@ function MoneyTransfer() {
                 toAccountNumber,
                 amount
             });
-            console.log('Transfer successful:', response.data);
-            // İsteğe bağlı: Başarılı transfer sonrası işlemler
+            alertify.success('Transfer successful:');
         } catch (error) {
             console.error('Error during transfer:', error);
-            // İsteğe bağlı: Hata durumunda işlemler
+            alertify.error('Error during transfer');
         }
     };
 

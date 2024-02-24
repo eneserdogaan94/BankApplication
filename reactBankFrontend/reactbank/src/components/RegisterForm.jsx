@@ -3,6 +3,8 @@ import axios from 'axios';
 import {FaUser , FaLock } from "react-icons/fa";
 import '../css/LoginForm.css'
 import { useNavigate } from 'react-router-dom';
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css';
 
 function ForgotPassword() {
     const [username, setUsername] = useState('');
@@ -21,9 +23,9 @@ function ForgotPassword() {
             });
             if (response && response.data) {
                 navigate('/');
-                console.log('Registered:', response.data);
+                alertify('Registered:', response.data);
             } else {
-                console.log('Unexpected response format');
+                alertify('Unexpected response format');
             }
         } catch (error) {
             if (error.response && error.response.data) {
@@ -66,6 +68,9 @@ function ForgotPassword() {
                         placeholder='Password'
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                </div>
+                <div className="remember-forgot">
+                    <a href="/">Return Login Page</a>
                 </div>
                 <button type="submit">Register</button>
             </form>

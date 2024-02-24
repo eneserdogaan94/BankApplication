@@ -3,6 +3,8 @@ import axios from 'axios';
 import {FaUser , FaLock } from "react-icons/fa";
 import '../css/LoginForm.css'
 import { useNavigate } from 'react-router-dom';
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css';
 
 function LoginForm() {
     const [username, setUsername] = useState('');
@@ -23,16 +25,20 @@ function LoginForm() {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('id',response.data.id);
                     localStorage.setItem('password',response.data.password);
+                    alertify.success('Login Success');
                 navigate('/home');
                 console.log('Login successful:', response.data);
             } else {
                 console.log('Unexpected response format');
+                alertify.error('Your username or password wrong.');
             }
         } catch (error) {
             if (error.response && error.response.data) {
                 setErrorMessage('Login failed: ' + error.response.data.message);
+                alertify.error('Login unsuccess.');
             } else {
                 setErrorMessage('Login failed: ' + error.message);
+                alertify.error('Login unsuccess.');
             }
         }
     };

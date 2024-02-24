@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../css/NewAccount.css'; // Stil dosyasını import et
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css';
+import { useNavigate } from 'react-router-dom';
 
 function NewAccount() {
     const [accountName, setAccountName] = useState('');
     const [userId,setUserId] =useState('');
     const [number,setNumber] =useState('')
-
+    const navigate = useNavigate();
     useEffect(() => {
         setUserId(localStorage.getItem('id'));
     }, []);
@@ -21,12 +24,12 @@ function NewAccount() {
                 balance: 0,
                 userId:userId,
                 number:number,
-
-
             });
-            console.log('Account created:', response.data);
+
+            alertify.success("Account created.");
+            navigate("/home");
         } catch (error) {
-            console.error('Error creating account:', error);
+            alertify.error("Account can not create.Please try again.")
         }
     };
 
