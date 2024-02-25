@@ -43,6 +43,14 @@ public class TransactionService {
 
             return transactionRepository.save(transaction);
         } else {
+            Transaction transaction = new Transaction();
+            transaction.setFrom(fromAccount);
+            transaction.setTo(toAccount);
+            transaction.setAmount(amount);
+            transaction.setTransactionDate(LocalDateTime.now());
+            transaction.setStatus("Failed");
+
+            transactionRepository.save(transaction);
             throw new RuntimeException("Insufficient balance");
         }
     }
