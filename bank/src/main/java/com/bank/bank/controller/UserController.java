@@ -48,7 +48,7 @@ public class UserController {
         User autherizedUser = userRepository.findByUsername(loginRequest.getUsername());
         if (autherizedUser != null && autherizedUser.getPassword().equals(loginRequest.getPassword())) {
             String token = jwtTokenProvider.generateToken(autherizedUser.getUsername());
-            return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+            return ResponseEntity.ok(new JwtAuthenticationResponse(token, autherizedUser.getUsername(), autherizedUser.getPassword(),autherizedUser.getId().toString()));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }

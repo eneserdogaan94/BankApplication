@@ -24,7 +24,7 @@ function LoginForm() {
             if (response && response.data) {
                     saveToLocalStorage('username',username);
                     saveToLocalStorage('token',response.data.token);
-                    saveToLocalStorage('id',response.data.id);
+                    saveToLocalStorage('id',response.data.userId);
                     saveToLocalStorage('password',response.data.password);
                     alertify.success('Login Success');
                 navigate('/home');
