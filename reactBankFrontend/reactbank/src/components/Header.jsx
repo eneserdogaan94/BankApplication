@@ -5,23 +5,20 @@ import
  from 'react-icons/bs'
  import axios from 'axios';
  import '../css/Header.css';
- import { saveToLocalStorage, getFromLocalStorage } from '../services/LocalStorageService';
 
-function Header({OpenSidebar}) {
+function Header({OpenSidebar,setSelectedAccount,accountList}) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState('');
-  const [options, setOptions] = useState(getFromLocalStorage('accountList'));
+  const [options, setOptions] = useState(accountList);
+  
 
 
     const getSelectedUser = async (accountId) => {
         if (accountId) {
             try {
                 const response = await axios.get(`http://localhost:8080/api/accounts/by-id/${accountId}`);
-                console.log(response.data);
-                saveToLocalStorage('accountName',response.data.name);
-                saveToLocalStorage('accountNumber',response.data.number);
-                saveToLocalStorage('accountId',response.data.id);
+                setSelectedAccount(response.data)
             } catch (error) {
                 console.error('Error fetching account balance:', error);
             }
@@ -39,11 +36,14 @@ function Header({OpenSidebar}) {
   const handleLogout = () => {
       localStorage.removeItem('token');
       localStorage.clear();
-      navigate("/");
+      navigate("/login");
   };
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+    useEffect(() => {
+        setOptions(accountList);
+      }, [accountList]);
   return (
     <header className='header'>
         <div className='menu-icon'>
@@ -56,7 +56,7 @@ function Header({OpenSidebar}) {
             <div className="dropdown">
             <select value={selectedValue} onChange={handleChange}>
             <option value="">Change Account</option>
-            {options.map((option, index) => (
+            {options && options.map((option, index) => (
             <option key={index} value={option.id}>
             {option.name}
             </option>

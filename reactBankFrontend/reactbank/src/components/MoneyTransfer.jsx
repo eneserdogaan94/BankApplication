@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import '../css/MoneyTransfer.css';
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
-import { useNavigate } from 'react-router-dom';
-import { getFromLocalStorage } from '../services/LocalStorageService';
 
-function MoneyTransfer() {
-    const [fromAccountNumber, setFromAccountNumber] = useState(getFromLocalStorage('accountNumber'));
+function MoneyTransfer({selectedAccount}) {
+    const [fromAccountNumber, setFromAccountNumber] = useState('');
     const [toAccountNumber, setToAccountNumber] = useState('');
     const [amount, setAmount] = useState(0);
-
+    useEffect( () => {
+       setFromAccountNumber(selectedAccount.number);
+    }, [selectedAccount.number]);
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {

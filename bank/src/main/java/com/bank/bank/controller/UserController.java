@@ -29,6 +29,11 @@ public class UserController {
             return null;
         }
     }
+    @PostMapping("/getUserByUserName")
+    public User getUserByUserName(@RequestBody @NotNull String userName){
+        User user= userRepository.findByUsername(userName);
+        return user;
+    }
 
     @PostMapping("/changePassword")
     public User changePassword(@RequestBody @NotNull User user) {

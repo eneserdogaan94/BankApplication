@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/TransactionHistory.css';
-import { getFromLocalStorage } from '../services/LocalStorageService';
 
-function TransactionHistory() {
+function TransactionHistory({selectedAccount}) {
     const [transactions, setTransactions] = useState([]);
     const [accountName,setAccountName] = useState();
 
     
+    
     useEffect(() => {
-        setAccountName(getFromLocalStorage('accountName'));
-    }, []);
-    useEffect(() => {
-        
         const fetchTransactions = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/transactions/account/${accountName}`);
+                const response = await axios.get(`http://localhost:8080/api/transactions/account/${selectedAccount.name}`);
                 setTransactions(response.data);
             } catch (error) {
                 console.error('Error fetching transactions:', error);
@@ -23,11 +19,11 @@ function TransactionHistory() {
         };
 
         fetchTransactions();
-    }, [accountName]);
+    }, [selectedAccount.name]);
 
     return (
         <div className="transaction-list-container">
-            <h2>Transaction History for {accountName}</h2>
+            <h2>Transaction History for {selectedAccount.name}</h2>
             <table className="transaction-list-table">
                 <thead>
                     <tr>

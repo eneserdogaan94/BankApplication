@@ -2,13 +2,9 @@ import React, { useState,useEffect } from 'react'
 import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, BsCurrencyExchange, BsWallet} from 'react-icons/bs'
  import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
  import '../css/Dashboard.css';
- import axios from 'axios';
- import { saveToLocalStorage, getFromLocalStorage } from '../services/LocalStorageService';
-function Dashboard() {
-   
-    const [balance, setBalance]=useState(null);
-    const [username, setUsername] = useState('');
-    const [accountName, setAccountName] = useState('');
+
+function Dashboard({selectedAccount}) { 
+ 
     const [currencyData, setCurrencyData] = useState([
         {
             "CurrencyCode": "EUR",
@@ -23,7 +19,6 @@ function Dashboard() {
             "PurchaseRate": "32.02306"
         }
     ]);
-    
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrencyData(currentData =>
@@ -36,31 +31,6 @@ function Dashboard() {
 
         return () => clearInterval(interval);
     }, []);
-    useEffect(() => {
-        setUsername(getFromLocalStorage('username'));
-    }, []);
-    useEffect(() => {
-        const fetchAccountBalance = async () => {
-            if (username) {
-                try {
-                    const response = await axios.get(`http://localhost:8080/api/accounts/by-username-list/${username}`);
-                    const accountList=response.data;
-                    const firstAccount=accountList[0];
-                    setBalance(firstAccount.balance);
-                    setAccountName(firstAccount.name);
-                    saveToLocalStorage("accountList",accountList);
-                    saveToLocalStorage('accountName',firstAccount.name);
-                    saveToLocalStorage('accountNumber',firstAccount.number);
-                    saveToLocalStorage('accountId',firstAccount.id);
-                } catch (error) {
-                    console.error('Error fetching account balance:', error);
-                }
-            }
-        };
-
-        fetchAccountBalance();
-    }, [username]); 
-    
     const data = [
         {
           name: 'Jan',
@@ -150,14 +120,14 @@ function Dashboard() {
                     <h3>Account</h3>
                     <BsPeopleFill className='card_icon'/>
                 </div>
-                <h1>{accountName}</h1>
+                <h1>{selectedAccount.name}</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>Balance</h3>
                     <BsWallet className='card_icon'/>
                 </div>
-                <h1>{balance !== null ? <p>₺{balance}</p> : <p>Loading...</p>}</h1>
+                <h1>{selectedAccount.balance !== null ? <p>₺{selectedAccount.balance}</p> : <p>Loading...</p>}</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
