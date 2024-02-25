@@ -2,15 +2,20 @@ package com.bank.bank.controller;
 
 import com.bank.bank.entity.LoginRequest;
 import com.bank.bank.entity.User;
+import com.bank.bank.model.response.JwtAuthenticationResponse;
 import com.bank.bank.repository.UserRepository;
+import com.bank.bank.security.JwtTokenProvider;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
     @Autowired
     private UserRepository userRepository;
 
@@ -39,18 +44,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User loginUser(@RequestBody LoginRequest loginRequest) throws Throwable {
-        try {
-            User autherizedUser = userRepository.findByUsername(loginRequest.getUsername());
-            if (autherizedUser != null && autherizedUser.getPassword().equals(loginRequest.getPassword())) {
-                System.out.println(autherizedUser);
-                return autherizedUser;
-            }else {
-                System.err.println("User no exist.");
-                return null;
-            }
-        }catch (Exception e){
-            throw e.fillInStackTrace();
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
+        User autherizedUser = userRepository.findByUsername(loginRequest.getUsername());
+        if (autherizedUser != null && autherizedUser.getPassword().equals(loginRequest.getPassword())) {
+            String token = jwtTokenProvider.generateToken(autherizedUser.getUsername());
+            return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
 }
