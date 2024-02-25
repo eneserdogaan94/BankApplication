@@ -4,8 +4,8 @@ import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, 
  import '../css/Dashboard.css';
  import axios from 'axios';
  import { saveToLocalStorage, getFromLocalStorage } from '../services/LocalStorageService';
-function Home() {
-
+function Dashboard() {
+   
     const [balance, setBalance]=useState(null);
     const [username, setUsername] = useState('');
     const [accountName, setAccountName] = useState('');
@@ -43,12 +43,15 @@ function Home() {
         const fetchAccountBalance = async () => {
             if (username) {
                 try {
-                    const response = await axios.get(`http://localhost:8080/api/accounts/by-username/${username}`);
-                    setBalance(response.data.balance);
-                    setAccountName(response.data.name);
-                    saveToLocalStorage('accountName',response.data.name);
-                    saveToLocalStorage('accountNumber',response.data.number);
-                    saveToLocalStorage('accountId',response.data.id);
+                    const response = await axios.get(`http://localhost:8080/api/accounts/by-username-list/${username}`);
+                    const accountList=response.data;
+                    const firstAccount=accountList[0];
+                    setBalance(firstAccount.balance);
+                    setAccountName(firstAccount.name);
+                    saveToLocalStorage("accountList",accountList);
+                    saveToLocalStorage('accountName',firstAccount.name);
+                    saveToLocalStorage('accountNumber',firstAccount.number);
+                    saveToLocalStorage('accountId',firstAccount.id);
                 } catch (error) {
                     console.error('Error fetching account balance:', error);
                 }
@@ -219,4 +222,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Dashboard

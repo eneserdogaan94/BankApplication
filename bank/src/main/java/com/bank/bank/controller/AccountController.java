@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -48,20 +50,20 @@ public class AccountController {
 
     // Hesap detaylarını görüntüleme
     @GetMapping("/by-id/{id}")
-    public Account getAccountById(@PathVariable String id) {
-        return accountRepository.findById(id).orElse(null);
+    public Account getAccountById(@PathVariable UUID id) {
+        return accountRepository.findById(id);
     }
 
-    @GetMapping("/by-username/{userName}")
-    public Account getAccountByUserName(@PathVariable("userName") String userName) {
+    @GetMapping("/by-username-list/{userName}")
+    public List<Account> getAccountByUserName(@PathVariable("userName") String userName) {
         User user = userService.getUserByUsername(userName);
-        Account account=accountRepository.findByUserId(user.getId());
-        return account;
-
+        List<Account> accounts=accountRepository.findByUserId(user.getId());
+        return accounts;
     }
     @GetMapping("/by-number/{number}")
     public  Account getAccountByNumber(@PathVariable("number") String number){
         Account account=accountService.getAccountByNumber(number);
         return account;
     }
+
 }
