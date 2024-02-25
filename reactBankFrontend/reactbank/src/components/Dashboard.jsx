@@ -46,8 +46,8 @@ function Home() {
                     const response = await axios.get(`http://localhost:8080/api/accounts/by-username/${username}`);
                     setBalance(response.data.balance);
                     setAccountName(response.data.name);
-                   saveToLocalStorage('accountName',response.data.name);
-                   saveToLocalStorage('accountNumber',response.data.number);
+                    saveToLocalStorage('accountName',response.data.name);
+                    saveToLocalStorage('accountNumber',response.data.number);
                     saveToLocalStorage('accountId',response.data.id);
                 } catch (error) {
                     console.error('Error fetching account balance:', error);

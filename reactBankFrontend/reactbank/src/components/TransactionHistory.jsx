@@ -5,7 +5,12 @@ import { getFromLocalStorage } from '../services/LocalStorageService';
 
 function TransactionHistory() {
     const [transactions, setTransactions] = useState([]);
-    const [accountName,setAccountName] = useState(getFromLocalStorage('accountName'))
+    const [accountName,setAccountName] = useState();
+
+    
+    useEffect(() => {
+        setAccountName(getFromLocalStorage('accountName'));
+    }, []);
     useEffect(() => {
         
         const fetchTransactions = async () => {
