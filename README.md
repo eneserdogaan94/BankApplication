@@ -26,6 +26,7 @@ Yerel Ortamda Çalıştırma
 1.Git reposunu klonlayın:
 git clone https://github.com/eneserdogaan94/BankApplication
 Backend için:
+
 •	BankApplication/bank klasöründe bulunan backend projesini IntelliJ IDEA üzerinden açın.
 •	Java 21 ve Maven kurulumlarını yapın.
 •	Veritabanı erişimini sağlamak için Docker Desktop'ı çalıştırın ve lütfen komutu bash üzerinden çalıştırın: docker-compose up -d
@@ -34,9 +35,12 @@ Backend için:
 Frontend için:
 
 •	BankApplication/reactBankFrontend/reactbank klasörüne gidin.
+
 •	Bağımlılıkları yüklemek için aşağıdaki komutları çalıştırın:
+
 •	npm install
-•npm start
+
+• npm start
 
 
 
@@ -45,10 +49,15 @@ Frontend için:
 
 Veritabanı Bilgileri
 Eğer Docker kullanmadan manuel olarak MySQL server kurulumu yapmak isterseniz, aşağıdaki veritabanı bilgilerini kullanabilirsiniz:
+
 •	URL: jdbc:mysql://localhost:3306/bank
+
 •	Kullanıcı Adı: root
+
 •	Şifre: admin
+
 •	Sürücü Sınıfı: com.mysql.cj.jdbc.Driver
+
 
 
 Program açıldıktan sonra kullanıcınız olmadığı için aşağıda ki register bölümünden lütfen kullanıcı açınız. Ardından giriş yapabilirsiniz.
