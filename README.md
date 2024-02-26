@@ -5,6 +5,7 @@ Bu proje, kullanıcıların banka hesaplarını yönetmelerine imkan tanıyan bi
 
 
 Teknolojiler
+
 •	Spring Boot: Uygulamanın arka ucu, Java 21, Spring Boot ve Maven kullanılarak geliştirilmiştir. RESTful API'lar sunar ve veri işleme için JPA/Hibernate kullanır.
 
 •	React: Kullanıcı arayüzü, React ile oluşturulmuştur. Dinamik ve kullanıcı dostu bir deneyim sunar.
