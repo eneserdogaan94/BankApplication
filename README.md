@@ -29,7 +29,9 @@ Backend için:
 
 •	BankApplication/bank klasöründe bulunan backend projesini IntelliJ IDEA üzerinden açın.
 •	Java 21 ve Maven kurulumlarını yapın.
-•	Veritabanı erişimini sağlamak için Docker Desktop'ı çalıştırın ve lütfen komutu bash üzerinden çalıştırın: docker-compose up -d
+•	Veritabanı erişimini sağlamak için Docker Desktop'ı çalıştırın ve lütfen komutu bash üzerinden çalıştırın: 
+
+docker-compose up -d
 
 
 Frontend için:
