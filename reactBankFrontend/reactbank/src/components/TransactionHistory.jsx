@@ -27,6 +27,7 @@ function TransactionHistory({selectedAccount}) {
             <table className="transaction-list-table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Sender Name</th>
                         <th>Sender Number</th>
                         <th>Receiver Name</th>
@@ -39,11 +40,12 @@ function TransactionHistory({selectedAccount}) {
                 <tbody>
                     {transactions.map((transaction) => (
                         <tr key={transaction.id}>
+                        <td>{transaction.id}</td>
                         <td>{transaction.from ? transaction.from.name : 'Belirsiz'}</td>
                         <td>{transaction.from ? transaction.from.number : 'Belirsiz'}</td>
                         <td>{transaction.to ? transaction.to.name : 'Belirsiz'}</td>
                         <td>{transaction.to ? transaction.to.number : 'Belirsiz'}</td>
-                        <td>{new Date(transaction.transtionDate).toLocaleString('tr-TR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
+                        <td>{transaction.transactionDate}</td>
                         <td>{transaction.amount}</td>
                         <td>{transaction.status}</td>
                         </tr>
