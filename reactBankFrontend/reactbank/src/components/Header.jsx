@@ -28,8 +28,6 @@ function Header({OpenSidebar,setSelectedAccount,accountList}) {
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
     getSelectedUser(event.target.value);
-    console.log(event.target.value);
-    console.log(event.target.value);
   };
 
 
@@ -69,7 +67,7 @@ function Header({OpenSidebar,setSelectedAccount,accountList}) {
             <BsPersonCircle className="icon" onClick={toggleMenu} />
             {isOpen && (
                 <ul className="submenu">
-                    <li onClick={handleLogout}>Çıkış Yap</li>
+                    <li onClick={handleLogout}>Logout</li>
                 </ul>
             )}
         </div>

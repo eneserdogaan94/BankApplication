@@ -27,7 +27,7 @@ public class TransactionService {
         Account fromAccount = accountRepository.findByNumber(fromAccountNumber);
         Account toAccount = accountRepository.findByNumber(toAccountNumber);
 
-        if (fromAccount.getBalance().compareTo(amount) >= 0) {
+        if (fromAccount.getBalance().compareTo(amount) >= 0 && toAccount != null){
             fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
             toAccount.setBalance(toAccount.getBalance().add(amount));
 
@@ -42,17 +42,18 @@ public class TransactionService {
             transaction.setStatus("SUCCESS");
 
             return transactionRepository.save(transaction);
-        } else {
+        } else if(toAccount == null || fromAccount.getBalance().compareTo(amount) <= 0) {
             Transaction transaction = new Transaction();
             transaction.setFrom(fromAccount);
-            transaction.setTo(toAccount);
+            transaction.setTo(null);
             transaction.setAmount(amount);
             transaction.setTransactionDate(LocalDateTime.now());
             transaction.setStatus("Failed");
-
             transactionRepository.save(transaction);
-            throw new RuntimeException("Insufficient balance");
+            return transactionRepository.save(transaction);
         }
+        else
+            throw new RuntimeException("There is something problem.");
     }
 
     public List<Transaction> getTransactionsByAccountId(UUID accountId) {

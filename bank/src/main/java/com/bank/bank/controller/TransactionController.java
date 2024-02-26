@@ -16,7 +16,6 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    // Para transferi başlatma
     @PostMapping("/transfer")
     public Transaction initiateTransfer(@RequestBody TransferRequest transferRequest) {
         return transactionService.createTransaction(
@@ -26,7 +25,6 @@ public class TransactionController {
         );
     }
 
-    // İşlem geçmişini görüntüleme
     @GetMapping("/account/{accountName}")
     public List<Transaction> getTransactionHistory(@PathVariable String accountName) {
         return transactionService.getTransactionsByAccountName(accountName);

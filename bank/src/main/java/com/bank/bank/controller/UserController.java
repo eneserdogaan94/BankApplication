@@ -19,7 +19,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    // Kullanıcı kaydı
     @PostMapping("/register")
     public User registerUser(@RequestBody @NotNull User user) {
         User userControl=userRepository.findByUsername(user.getUsername());

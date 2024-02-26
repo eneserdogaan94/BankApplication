@@ -30,17 +30,17 @@
     background-color: #f1f1f1;
 }
 .dropdown select {
-  width: 100%; /* Dropdown'ın genişliğini ayarlayın */
-  padding: 8px 12px; /* İç boşluk */
-  border: 1px solid #ccc; /* Kenarlık */
-  border-radius: 4px; /* Kenarlık yuvarlaklığı */
-  background-color: #f9f9f9; /* Arka plan rengi */
+  width: 100%;
+  padding: 0px 0px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #666;
 }
 
 .dropdown select:hover {
-  background-color: #f1f1f1; /* Fare ile üzerine gelindiğinde arka plan rengi */
+  background-color: #666;
 }
 
 .dropdown select:focus {
-  border-color: #007bff; /* Odaklandığında kenarlık rengi */
+  border-color: #007bff;
 }

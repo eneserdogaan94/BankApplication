@@ -20,7 +20,11 @@ function MoneyTransfer({selectedAccount}) {
                 toAccountNumber,
                 amount
             });
-            alertify.success('Transfer successful:');
+            if(response.data.status==="SUCCESS"){
+                alertify.success('Transfer successful');
+            }else{
+                alertify.error('Transfer error. Please Check Receiver Name or your balance.')
+            }
         } catch (error) {
             alertify.error('Error during transfer');
         }

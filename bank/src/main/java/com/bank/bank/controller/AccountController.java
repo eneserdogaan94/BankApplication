@@ -24,16 +24,14 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    // Hesap oluşturma
     @PostMapping("/createAccount")
     public Account createAccount(@RequestBody Account account) {
         return accountRepository.save(account);
     }
 
-    // Hesap güncelleme
     @PutMapping("/accountUpdate/{id}")
     public Account updateAccount(@PathVariable String id) {
-        // Hesap güncelleme işlemleri
+
         Account updateAccount = accountRepository.getReferenceById(id);
         updateAccount.setUserId(updateAccount.getUserId());
         updateAccount.setBalance(updateAccount.getBalance());
@@ -42,13 +40,11 @@ public class AccountController {
         return accountRepository.save(updateAccount);
     }
 
-    // Hesap silme
     @DeleteMapping("/{id}")
     public void deleteAccount(@PathVariable String id) {
         accountRepository.deleteById(id);
     }
 
-    // Hesap detaylarını görüntüleme
     @GetMapping("/by-id/{id}")
     public Account getAccountById(@PathVariable UUID id) {
         return accountRepository.findById(id);
