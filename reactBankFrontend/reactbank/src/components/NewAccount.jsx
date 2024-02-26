@@ -26,6 +26,7 @@ function NewAccount() {
             });
 
             alertify.success("Account created.");
+            window.location.reload();
             navigate("/home");
         } catch (error) {
             alertify.error("Account can not create.Please try again.")

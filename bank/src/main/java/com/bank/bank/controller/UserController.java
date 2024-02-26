@@ -1,6 +1,6 @@
 package com.bank.bank.controller;
 
-import com.bank.bank.entity.LoginRequest;
+import com.bank.bank.model.request.LoginRequest;
 import com.bank.bank.entity.User;
 import com.bank.bank.model.response.JwtAuthenticationResponse;
 import com.bank.bank.repository.UserRepository;

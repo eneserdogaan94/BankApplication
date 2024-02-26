@@ -5,6 +5,7 @@ import com.bank.bank.entity.User;
 import com.bank.bank.repository.AccountRepository;
 import com.bank.bank.service.AccountService;
 import com.bank.bank.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,19 +31,22 @@ public class AccountController {
     }
 
     @PutMapping("/accountUpdate/{id}")
-    public Account updateAccount(@PathVariable String id) {
+    public Account updateAccount(@RequestBody Account account) {
 
-        Account updateAccount = accountRepository.getReferenceById(id);
-        updateAccount.setUserId(updateAccount.getUserId());
-        updateAccount.setBalance(updateAccount.getBalance());
-        updateAccount.setName(updateAccount.getName());
-        updateAccount.setNumber(updateAccount.getNumber());
+        Account updateAccount = accountRepository.findById(account.getId());
+        updateAccount.setBalance(account.getBalance());
+        updateAccount.setName(account.getName());
+        updateAccount.setNumber(account.getNumber());
+        updateAccount.setCreatedAt(LocalDateTime.now());
+        updateAccount.setUpdatedAt(LocalDateTime.now());
         return accountRepository.save(updateAccount);
     }
 
+    @Transactional
     @DeleteMapping("/{id}")
     public void deleteAccount(@PathVariable String id) {
-        accountRepository.deleteById(id);
+        UUID uuid = UUID.fromString(id);
+        accountRepository.deleteById(uuid);
     }
 
     @GetMapping("/by-id/{id}")

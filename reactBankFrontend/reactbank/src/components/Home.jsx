@@ -5,6 +5,8 @@ import Sidebar from './Sidebar';
 import NewAccount from './NewAccount';
 import MoneyTransfer from './MoneyTransfer';
 import TransactionHistory from './TransactionHistory';
+import UpdateAccount from './UpdateAccount';
+import DeleteAccount from './DeleteAccount';
 import '../css/Home.css';
 import { getFromLocalStorage } from '../services/LocalStorageService';
 import { useNavigate } from 'react-router-dom';
@@ -65,8 +67,12 @@ function Home() {
                 return <MoneyTransfer selectedAccount={selectedAccount} />;
             case 'TransactionHistory':
                 return <TransactionHistory selectedAccount={selectedAccount} />;
+            case 'UpdateAccount':
+                return <UpdateAccount selectedAccount={selectedAccount} />;
+            case 'AccountDelete':
+                    return <DeleteAccount selectedAccount={selectedAccount} />;
             default:
-                return <Dashboard selectedAccount={selectedAccount} />;
+                return <Dashboard selectedAccount={selectedAccount} setSelectedAccount={setSelectedAccount} accountList={accountList} />;
         }
     };
 

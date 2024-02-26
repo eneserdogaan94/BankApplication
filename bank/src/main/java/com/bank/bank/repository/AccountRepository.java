@@ -12,5 +12,7 @@ public interface AccountRepository extends JpaRepository<Account, String> {
 
     Account findById(UUID accountId);
 
+    void deleteById(UUID accountId);
+
     Account findByNumber(String number);
 }
