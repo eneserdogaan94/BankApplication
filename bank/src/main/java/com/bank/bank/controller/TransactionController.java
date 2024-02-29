@@ -13,8 +13,13 @@ import java.util.UUID;
 @RequestMapping("/api/transactions")
 public class TransactionController {
 
+
+    private final TransactionService transactionService;
+
     @Autowired
-    private TransactionService transactionService;
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     @PostMapping("/transfer")
     public Transaction initiateTransfer(@RequestBody TransferRequest transferRequest) {

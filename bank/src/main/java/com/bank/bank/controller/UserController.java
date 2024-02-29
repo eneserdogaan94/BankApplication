@@ -14,10 +14,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    @Autowired
+
     JwtTokenProvider jwtTokenProvider;
+
+    private final UserRepository userRepository;
+
+
     @Autowired
-    private UserRepository userRepository;
+    public UserController(JwtTokenProvider jwtTokenProvider, UserRepository userRepository) {
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.userRepository = userRepository;
+    }
 
     @PostMapping("/register")
     public User registerUser(@RequestBody @NotNull User user) {

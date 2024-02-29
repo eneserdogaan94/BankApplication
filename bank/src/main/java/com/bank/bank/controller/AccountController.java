@@ -17,13 +17,19 @@ import java.util.UUID;
 @RequestMapping("/api/accounts")
 public class AccountController {
 
-    @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    private UserService userService;
 
+    private final AccountRepository accountRepository;
+
+    private final UserService userService;
+
+
+    private final AccountService accountService;
     @Autowired
-    private AccountService accountService;
+    public AccountController(AccountRepository accountRepository, UserService userService, AccountService accountService) {
+        this.accountRepository = accountRepository;
+        this.userService = userService;
+        this.accountService = accountService;
+    }
 
     @PostMapping("/createAccount")
     public Account createAccount(@RequestBody Account account) {
